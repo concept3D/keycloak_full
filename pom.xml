@@ -1694,6 +1694,13 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- Nashorn JavaScript Engine -->
+            <dependency>
+                <groupId>org.openjdk.nashorn</groupId>
+                <artifactId>nashorn-core</artifactId>
+                <version>15.3</version>
+            </dependency>
+
             <!-- WildFly Galleon Plugins -->
             <dependency>
                 <groupId>org.wildfly.galleon-plugins</groupId>
@@ -1840,6 +1847,24 @@
                     <groupId>org.wildfly.build</groupId>
                     <artifactId>wildfly-server-provisioning-maven-plugin</artifactId>
                     <version>${wildfly.build-tools.version}</version>
+                </plugin>
+                <!-- Nashorn JavaScript Engine -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                                <id>copy-dependencies-quarkus</id>
+                                <phase>package</phase>
+                           <goals>
+                               <goal>copy-dependencies</goal>
+                           </goals>
+                           <configuration>
+                               <outputDirectory>${project.build.directory}/keycloak-server-copy/providers</outputDirectory>
+                               <includeArtifactIds>nashorn-core,asm,asm-util,asm-commons</includeArtifactIds>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.galleon-plugins</groupId>
